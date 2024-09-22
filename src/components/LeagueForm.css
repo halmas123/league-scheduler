@@ -1,0 +1,36 @@
+/* src/components/LeagueForm.css */
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    max-width: 300px;
+  }
+  
+  .form-group label {
+    width: 150px;
+    margin-right: 10px;
+  }
+  
+  .form-group input {
+    flex: 1;
+  }
+  
+  .availability-grid {
+    margin-top: 20px;
+  }
+  
+  .availability-grid table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .availability-grid th,
+  .availability-grid td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  .availability-grid input[type="checkbox"] {
+    transform: scale(1.5);
+  }
