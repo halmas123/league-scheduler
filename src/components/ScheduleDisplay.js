@@ -87,9 +87,13 @@ function ScheduleDisplay({
 
     // 1. Export Team Constraints
     csvContent += 'Team Name,Unavailable Weeks\n';
-    config.teamNames.forEach((team, index) => {
-      const unavailableWeeks = teamConstraintsRef.current[index].join(', ');
-      csvContent += `${team}, ${unavailableWeeks}\n`;
+    config.teamNames.forEach((team) => {
+      if (teamConstraintsRef.current[team]) {
+        const unavailableWeeks = teamConstraintsRef.current[team].map(v => v+1).join(', ');
+        csvContent += `${team}, ${unavailableWeeks}\n`;
+      } else {
+        csvContent += `${team},\n`;
+      }
     });
 
     csvContent += '\n'; // Add a blank line between sections
