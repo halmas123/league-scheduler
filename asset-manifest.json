@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/league-scheduler/static/css/main.13f63afc.css",
-    "main.js": "/league-scheduler/static/js/main.499a8b48.js",
+    "main.js": "/league-scheduler/static/js/main.5a583438.js",
     "static/js/453.c39a8b7a.chunk.js": "/league-scheduler/static/js/453.c39a8b7a.chunk.js",
     "index.html": "/league-scheduler/index.html",
     "main.13f63afc.css.map": "/league-scheduler/static/css/main.13f63afc.css.map",
-    "main.499a8b48.js.map": "/league-scheduler/static/js/main.499a8b48.js.map",
+    "main.5a583438.js.map": "/league-scheduler/static/js/main.5a583438.js.map",
     "453.c39a8b7a.chunk.js.map": "/league-scheduler/static/js/453.c39a8b7a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.13f63afc.css",
-    "static/js/main.499a8b48.js"
+    "static/js/main.5a583438.js"
   ]
 }
