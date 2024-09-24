@@ -119,7 +119,6 @@ function ScheduleDisplay({
       csvContent += 'No schedule available to export.\n';
     }
 
-    console.log('CSV Content:', csvContent);
 
     // Create a Blob from the CSV content
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });

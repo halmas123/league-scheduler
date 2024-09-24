@@ -73,7 +73,8 @@ export const generateSchedule = async (teamNames, teamConstraints, config, signa
       if (remainingMaxGames < remainingGamesNeeded) {
         return false;
       }
-  
+      
+      console.log(`Team Games Left: ${teamGamesLeft}`);
       if (weekNum === weeks) {
         console.log(teamGamesLeft);
         gamesPerWeek.forEach((weekGames) => console.log(weekGames));
@@ -88,18 +89,16 @@ export const generateSchedule = async (teamNames, teamConstraints, config, signa
           return false;
         }
       }
-  
+      console.log("Starting backtrack2");
       return backtrack2(weekNum, gamesPerWeek[weekNum] || [], []);
     };
   
     // Backtracking function 2
     const backtrack2 = (weekNum, gamesThisWeek, teamsPlaying) => {
       if (
-        gamesThisWeek.length === Math.min(
-          maxGamesInWeek[weekNum],
-          numGamesPerWeek
-        ) ||
-        (allGames.size - gamesPlayed.size) <
+        gamesThisWeek.length === maxGamesInWeek[weekNum]
+         ||
+        (allGames.size - gamesPlayed.size) <=
           numGamesPerWeek * (weeks - weekNum - 1)
       ) {
         gamesPerWeek[weekNum] = [...gamesThisWeek];
@@ -111,7 +110,6 @@ export const generateSchedule = async (teamNames, teamConstraints, config, signa
           return false;
         }
       }
-  
       for (let game of allGames) {
         const [A, B] = game.split('-').map(Number);
         if (

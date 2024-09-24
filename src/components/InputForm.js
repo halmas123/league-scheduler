@@ -8,6 +8,28 @@ function InputForm({ setConfig }) {
   const [teamNames, setTeamNames] = useState(
     Array(10).fill('').map((_, i) => `Team ${i + 1}`)
   );
+  const [totalWeeks, setTotalWeeks] = useState(0);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    // Calculate total weeks based on current values
+    if (gamesPerWeek > 0) {
+      const calculatedWeeks = Math.ceil(
+        (numTeams * gamesPerTeam) / (2 * gamesPerWeek)
+      );
+      setTotalWeeks(calculatedWeeks);
+    }
+
+    // Validate games per week based on number of teams
+    const maxGamesPerWeek = Math.floor(numTeams / 2);
+    if (gamesPerWeek > maxGamesPerWeek) {
+      setError(
+        `Games per week can't be greater than ${maxGamesPerWeek} for ${numTeams} teams.`
+      );
+    } else {
+      setError('');
+    }
+  }, [numTeams, gamesPerTeam, gamesPerWeek]);
 
   useEffect(() => {
     // Adjust the team names array based on the number of teams
@@ -45,7 +67,7 @@ function InputForm({ setConfig }) {
 
     setConfig({
       numTeams,
-      minWeeks: Math.ceil((numTeams * gamesPerTeam) / (2 * gamesPerWeek)),
+      minWeeks: totalWeeks,
       teamNames,
       gamesPerTeam,
       gamesPerWeek,
@@ -77,6 +99,7 @@ function InputForm({ setConfig }) {
           value={gamesPerTeam}
           onChange={(e) => setGamesPerTeam(parseInt(e.target.value))}
           min="1"
+          max={numTeams - 1} // Prevent user from entering an invalid value
           required
         />
       </div>
@@ -87,8 +110,16 @@ function InputForm({ setConfig }) {
           value={gamesPerWeek}
           onChange={(e) => setGamesPerWeek(parseInt(e.target.value))}
           min="1"
+          max={Math.floor(numTeams / 2)} // Prevent user from entering an invalid value
           required
         />
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+      </div>
+      <div>
+        <label>Total Weeks: </label>
+        <span>{totalWeeks}</span>
+        <label> | Total Byes: </label>
+        <span>{totalWeeks-gamesPerTeam}</span>
       </div>
       <div>
         <label>Team Names:</label>
@@ -104,7 +135,7 @@ function InputForm({ setConfig }) {
           </div>
         ))}
       </div>
-      <button type="submit">Set Configuration</button>
+      <button type="submit" disabled={!!error}>Set Configuration</button>
     </form>
   );
 }
