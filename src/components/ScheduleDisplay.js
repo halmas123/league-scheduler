@@ -18,8 +18,6 @@ function ScheduleDisplay({
 
   useEffect(() => {
     const initiateScheduleGeneration = async () => {
-      console.log('Initiating schedule generation...');
-      console.log('Team Constraints:', constraints);
       setIsGenerating(true);
       setScheduleError('');
       setGeneratedSchedule(null);
@@ -29,7 +27,6 @@ function ScheduleDisplay({
       // Transform constraints from week-wise to team-wise
       const transformedTeamConstraints = {}
       constraints.forEach((weekConstraints, weekIndex) => {
-        console.log('Week Constraints:', weekConstraints);
         weekConstraints.unavailableTeams.forEach((teamIndex) => {
             if (!transformedTeamConstraints[teamIndex]) {
                 transformedTeamConstraints[teamIndex] = [];
@@ -38,7 +35,6 @@ function ScheduleDisplay({
         });
       });
       teamConstraintsRef.current = transformedTeamConstraints; // Set the transformed constraints
-      console.log('Transformed Team Constraints:', teamConstraintsRef.current);
 
       try {
         const result = await generateSchedule(
@@ -47,17 +43,13 @@ function ScheduleDisplay({
           config,
           signal
         );
-        console.log('Schedule Generation Result:', result);
         if (result.success) {
-          console.log('Schedule generated successfully.');
           setGeneratedSchedule(result.schedule);
         } else {
-          console.log('Schedule generation failed:', result.message);
           setScheduleError(result.message);
         }
       } catch (error) {
         if (error.message !== 'Schedule generation cancelled.') {
-          console.log('Error during schedule generation:', error.message);
           setScheduleError(error.message);
         } else {
           console.log('Schedule generation was cancelled.');

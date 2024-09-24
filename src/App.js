@@ -12,15 +12,9 @@ function App() {
   const [scheduleError, setScheduleError] = useState(''); // Error state for scheduling
   const [constraints, setConstraints] = useState([]); // State for constraints
 
-  // Log constraints whenever they change
-  useEffect(() => {
-    console.log('App.js - Current Constraints:', constraints);
-  }, [constraints]);
-
   const generateSchedule = () => {
     // Trigger ScheduleDisplay to generate the schedule
     setScheduleTrigger('generate');
-    console.log('App.js - Generate Schedule triggered.');
   };
 
   return (

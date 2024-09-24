@@ -1,5 +1,4 @@
-// src/components/InputForm.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 function InputForm({ setConfig }) {
@@ -9,6 +8,27 @@ function InputForm({ setConfig }) {
   const [teamNames, setTeamNames] = useState(
     Array(10).fill('').map((_, i) => `Team ${i + 1}`)
   );
+
+  useEffect(() => {
+    // Adjust the team names array based on the number of teams
+    setTeamNames((prevTeamNames) => {
+      const updatedNames = [...prevTeamNames];
+
+      // When the number of teams increases
+      if (numTeams > updatedNames.length) {
+        for (let i = updatedNames.length; i < numTeams; i++) {
+          updatedNames.push(`Team ${i + 1}`);
+        }
+      }
+
+      // When the number of teams decreases
+      if (numTeams < updatedNames.length) {
+        updatedNames.length = numTeams;
+      }
+
+      return updatedNames;
+    });
+  }, [numTeams]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
